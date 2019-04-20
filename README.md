@@ -1,5 +1,5 @@
 # Game_HerdingCats
-It's a game called Herding cats.
+It's a game called Herding cats. [Last modifed on 2018/11/11 ]
 
 The game involves 10 Cats and one Dog. The Cats and Dog are each located
 in one particular square on each turn of the game. The player controls the Dog,
