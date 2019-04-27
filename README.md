@@ -11,3 +11,7 @@ cats respond to the dag's movements.
 The object of the game is to herd the Cats into a single square. It doesn't
 matter which square, once all the Cats are in one square the player wins the
 game.
+
+This is an assignment of one of my COM module. It's just a game, using a package 
+provided by the lecturer. Unfortunately, I should not provide the package due to the 
+copyright. I will update it using Swing in the future.
