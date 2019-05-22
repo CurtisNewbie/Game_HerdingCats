@@ -13,14 +13,14 @@ public class GameView {
 	private final Dimension frameDim;
 	
 	private JFrame gameFrame;
-	private JPanel gameBoradPanel;
+	private JPanel gameBoardPanel;
 
-	public GameView() {
+	public GameView(JPanel gameBoardPanel) {
 		
 		// set up basic components
 		gameFrame = new JFrame("Herding Cats!!!!!!");
-		gameBoradPanel = new JPanel();
-		gameFrame.setContentPane(gameBoradPanel);
+		this.gameBoardPanel = gameBoardPanel;
+		gameFrame.setContentPane(this.gameBoardPanel);
 		
 		// set screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -30,6 +30,7 @@ public class GameView {
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setVisible(true);
+		gameFrame.repaint();
 	}
 	
 }
