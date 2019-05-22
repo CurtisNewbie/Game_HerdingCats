@@ -5,6 +5,6 @@ package guiView;
 public class MainExe {
 
 	public static void main(String args[]) {
-		GameView view = new GameView();
+		GameView view = new GameView(new GameBoardPanel());
 	}
 }
