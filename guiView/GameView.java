@@ -8,19 +8,19 @@ import javax.swing.JPanel;
 
 
 public class GameView {
-
+	
 	//default size of this game's frame
 	private final Dimension frameDim;
 	
 	private JFrame gameFrame;
-	private JPanel contentPane;
+	private JPanel gameBoradPanel;
 
 	public GameView() {
 		
 		// set up basic components
 		gameFrame = new JFrame("Herding Cats!!!!!!");
-		contentPane = new JPanel();
-		gameFrame.setContentPane(contentPane);
+		gameBoradPanel = new JPanel();
+		gameFrame.setContentPane(gameBoradPanel);
 		
 		// set screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
