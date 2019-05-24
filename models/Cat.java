@@ -730,4 +730,12 @@ public class Cat {
 	    }
 	}
     }
+    
+    public int getPositionX() {
+	return this.positionX;
+    }
+    
+    public int getPositionY() {
+	return this.positionY;
+    }
 }
