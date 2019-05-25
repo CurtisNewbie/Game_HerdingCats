@@ -693,29 +693,30 @@ public class Cat {
      * grid.
      */
     private void moveToDog(int squareDog, int dogPositionX, int dogPositionY) {
-	while (squareCat != squareDog) {
-	    if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_LEFT) {
+	if (squareCat != squareDog) {
+	    DogRelativePosition relativePosition = checkRelativePosition(dogPositionX, dogPositionY);
+	    if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		moveTopLeft();
 		squareCat += 2;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP) {
+	    } else if (relativePosition == DogRelativePosition.TOP) {
 		moveUp();
 		squareCat += 3;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_RIGHT) {
+	    } else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
 		moveTopRight();
 		squareCat += 4;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.RIGHT) {
+	    } else if (relativePosition == DogRelativePosition.RIGHT) {
 		moveRight();
 		squareCat++;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_RIGHT) {
+	    } else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
 		moveBottomRight();
 		squareCat -= 2;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM) {
+	    } else if (relativePosition == DogRelativePosition.BOTTOM) {
 		moveDown();
 		squareCat -= 3;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_LEFT) {
+	    } else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
 		moveBottomLeft();
 		squareCat -= 4;
-	    } else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.LEFT) {
+	    } else if (relativePosition == DogRelativePosition.LEFT) {
 		moveLeft();
 		squareCat--;
 	    } else {
