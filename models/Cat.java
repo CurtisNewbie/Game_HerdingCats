@@ -336,20 +336,20 @@ public class Cat {
 	    case 0:
 		if (squareDog != 4) {
 		    squareCat = 4;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    default:
@@ -361,33 +361,33 @@ public class Cat {
 	    case 0:
 		if (squareDog != 1) {
 		    squareCat = 1;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
 		    squareCat = 4;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
 		    squareCat = 3;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    default:
@@ -399,20 +399,20 @@ public class Cat {
 	    case 0:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
 		}
 		break;
 	    default:
@@ -424,33 +424,33 @@ public class Cat {
 	    case 0:
 		if (squareDog != 7) {
 		    squareCat = 7;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
 		    squareCat = 8;
-		    positionY += HerdingCats.SQUARE_SIZE;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
+		    positionX += squareWidth;
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX +=squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 4:
 		if (squareDog != 1) {
 		    squareCat = 1;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY+= squareHeight;
 		}
 		break;
 	    default:
@@ -462,53 +462,53 @@ public class Cat {
 	    case 0:
 		if (squareDog != 1) {
 		    squareCat = 1;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 1:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 3) {
 		    squareCat = 3;
 		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 3:
 		if (squareDog != 4) {
 		    squareCat = 4;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 4:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    case 5:
 		if (squareDog != 7) {
 		    squareCat = 7;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 6:
 		if (squareDog != 8) {
 		    squareCat = 8;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 7:
 		if (squareDog != 9) {
 		    squareCat = 9;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    default:
@@ -520,33 +520,33 @@ public class Cat {
 	    case 0:
 		if (squareDog != 9) {
 		    squareCat = 9;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
 		    squareCat = 8;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY += HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY -= squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
 		    squareCat = 3;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY+= squareHeight;
 		}
 		break;
 	    default:
@@ -558,20 +558,20 @@ public class Cat {
 	    case 0:
 		if (squareDog != 8) {
 		    squareCat = 8;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 4) {
 		    squareCat = 4;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    default:
@@ -583,33 +583,33 @@ public class Cat {
 	    case 0:
 		if (squareDog != 7) {
 		    squareCat = 7;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
 		    squareCat = 4;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 4:
 		if (squareDog != 9) {
 		    squareCat = 9;
-		    positionX += HerdingCats.SQUARE_SIZE;
+		    positionX += squareWidth;
 		}
 		break;
 	    default:
@@ -621,20 +621,20 @@ public class Cat {
 	    case 0:
 		if (squareDog != 8) {
 		    squareCat = 8;
-		    positionX -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
 		    squareCat = 5;
-		    positionX -= HerdingCats.SQUARE_SIZE;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionX -= squareWidth;
+		    positionY += squareHeight;
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionY -= HerdingCats.SQUARE_SIZE;
+		    positionY += squareHeight;
 		}
 		break;
 	    default:
