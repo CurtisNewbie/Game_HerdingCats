@@ -258,28 +258,28 @@ public class Cat {
     // Move to the square on the left. Square 7,4,1 are on the edge of the grid.
     private void moveLeft() {
 	if (squareCat != 7 && squareCat != 4 && squareCat != 1) {
-	    positionX -= HerdingCats.SQUARE_SIZE;
+	    positionX -= squareWidth;
 	}
     }
 
     // Move to the square on the right. Square 9,6,3 are on the edge of the grid.
     private void moveRight() {
 	if (squareCat != 9 && squareCat != 6 && squareCat != 3) {
-	    positionX += HerdingCats.SQUARE_SIZE;
+	    positionX += squareWidth;
 	}
     }
 
     // Move to the square on the top. Square 7,8,9 are on the edge of the grid.
     private void moveUp() {
 	if (squareCat != 7 && squareCat != 8 && squareCat != 9) {
-	    positionY += HerdingCats.SQUARE_SIZE;
+	    positionY -= squareHeight;
 	}
     }
 
     // Move to the square below. Square 1,2,3 are on the edge of the grid.
     private void moveDown() {
 	if (squareCat != 1 && squareCat != 2 && squareCat != 3) {
-	    positionY -= HerdingCats.SQUARE_SIZE;
+	    positionY += squareHeight;
 	}
     }
 
@@ -287,8 +287,8 @@ public class Cat {
     // grid.
     private void moveTopLeft() {
 	if (squareCat != 1 && squareCat != 4 && squareCat != 7 && squareCat != 8 && squareCat != 9) {
-	    positionX -= HerdingCats.SQUARE_SIZE;
-	    positionY += HerdingCats.SQUARE_SIZE;
+	    positionX -= squareWidth;
+	    positionY -= squareHeight;
 	}
     }
 
@@ -296,8 +296,8 @@ public class Cat {
     // grid.
     private void moveTopRight() {
 	if (squareCat != 7 && squareCat != 8 && squareCat != 9 && squareCat != 6 && squareCat != 3) {
-	    positionX += HerdingCats.SQUARE_SIZE;
-	    positionY += HerdingCats.SQUARE_SIZE;
+	    positionX += squareWidth;
+	    positionY -= squareHeight;
 	}
     }
 
@@ -305,8 +305,8 @@ public class Cat {
     // the grid.
     private void moveBottomLeft() {
 	if (squareCat != 7 && squareCat != 4 && squareCat != 1 && squareCat != 2 && squareCat != 3) {
-	    positionX -= HerdingCats.SQUARE_SIZE;
-	    positionY -= HerdingCats.SQUARE_SIZE;
+	    positionX -= squareWidth;
+	    positionY += squareHeight;
 	}
     }
 
@@ -314,8 +314,8 @@ public class Cat {
     // the grid.
     private void moveBottomRight() {
 	if (squareCat != 1 && squareCat != 2 && squareCat != 3 && squareCat != 6 && squareCat != 9) {
-	    positionX += HerdingCats.SQUARE_SIZE;
-	    positionY -= HerdingCats.SQUARE_SIZE;
+	    positionX += squareWidth;
+	    positionY += squareHeight;
 	}
     }
 
