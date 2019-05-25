@@ -12,6 +12,9 @@ public class Cat {
 
     // The square that the cat is on.
     private int squareCat = 0;
+    
+    private int squareWidth;
+    private int squareHeight;
 
     /**
      * The X coordinate of the cat's position.
@@ -649,40 +652,32 @@ public class Cat {
 
 	// It checks relative position by comparing dog positions and cat positions.
 
-	if (positionX < dogPositionX - HerdingCats.SQUARE_SIZE / 2
-		&& positionY > dogPositionY + HerdingCats.SQUARE_SIZE / 2) {
+	if (positionX < dogPositionX - squareWidth / 2 && positionY < dogPositionY - squareHeight / 2) {
 	    // dog is on the bottom right
 	    return DogRelativePosition.BOTTOM_RIGHT;
-	} else if (positionX >= dogPositionX - HerdingCats.SQUARE_SIZE / 2
-		&& positionX <= dogPositionX + HerdingCats.SQUARE_SIZE / 2
-		&& positionY >= dogPositionY + HerdingCats.SQUARE_SIZE / 2) {
+	} else if ((positionX == dogPositionX || positionX - dogPositionX > -squareWidth
+		|| positionX - dogPositionX < squareWidth) && positionY < dogPositionY - squareHeight / 2) {
 	    // dog is on the square bellow
 	    return DogRelativePosition.BOTTOM;
-	} else if (positionX > dogPositionX + HerdingCats.SQUARE_SIZE / 2
-		&& positionY > dogPositionY + HerdingCats.SQUARE_SIZE / 2) {
+	} else if (positionX > dogPositionX + squareWidth / 2 && positionY < dogPositionY - squareHeight / 2) {
 	    // dog is on the bottom left
 	    return DogRelativePosition.BOTTOM_LEFT;
-	} else if (positionX > dogPositionX + HerdingCats.SQUARE_SIZE / 2
-		&& positionY >= dogPositionY - HerdingCats.SQUARE_SIZE / 2
-		&& positionY <= dogPositionY + HerdingCats.SQUARE_SIZE / 2) {
+	} else if (positionX > dogPositionX + squareWidth / 2 && (positionY == dogPositionY
+		|| positionY - dogPositionY > -squareHeight / 2 || positionY - dogPositionY < squareHeight / 2)) {
 	    // dog is on the square on the left
 	    return DogRelativePosition.LEFT;
-	} else if (positionX > dogPositionX + HerdingCats.SQUARE_SIZE / 2
-		&& positionY < dogPositionY - HerdingCats.SQUARE_SIZE / 2) {
+	} else if (positionX > dogPositionX + squareWidth / 2 && positionY > dogPositionY + squareHeight / 2) {
 	    // dog is on the top left
 	    return DogRelativePosition.TOP_LEFT;
-	} else if (positionX >= dogPositionX - HerdingCats.SQUARE_SIZE / 2
-		&& positionX <= dogPositionX + HerdingCats.SQUARE_SIZE / 2
-		&& positionY <= dogPositionY - HerdingCats.SQUARE_SIZE / 2) {
+	} else if ((positionX == dogPositionX || positionX - dogPositionX > -squareWidth
+		|| positionX - dogPositionX < squareWidth) && positionY >= dogPositionY + squareHeight / 2) {
 	    // dog is on the square on the top
 	    return DogRelativePosition.TOP;
-	} else if (positionX < dogPositionX - HerdingCats.SQUARE_SIZE / 2
-		&& positionY < dogPositionY - HerdingCats.SQUARE_SIZE / 2) {
+	} else if (positionX < dogPositionX - squareWidth / 2 && positionY > dogPositionY + squareHeight / 2) {
 	    // dog is on the top right
 	    return DogRelativePosition.TOP_RIGHT;
-	} else if (positionX < dogPositionX - HerdingCats.SQUARE_SIZE / 2
-		&& positionY >= dogPositionY - HerdingCats.SQUARE_SIZE / 2
-		&& positionY <= dogPositionY + HerdingCats.SQUARE_SIZE / 2) {
+	} else if (positionX < dogPositionX - squareWidth / 2 && (positionY == dogPositionY
+		|| positionY - dogPositionY > -squareHeight / 2 || positionY - dogPositionY < squareHeight / 2)) {
 	    // on the right
 	    return DogRelativePosition.RIGHT;
 	} else {
@@ -730,12 +725,20 @@ public class Cat {
 	    }
 	}
     }
-    
+
     public int getPositionX() {
 	return this.positionX;
     }
-    
+
     public int getPositionY() {
 	return this.positionY;
+    }
+    
+    public void setSquareWidth(int width) {
+	this.squareWidth = width;
+    }
+    
+    public void setSquareHeight(int height) {
+	this.squareHeight = height;
     }
 }
