@@ -1,19 +1,29 @@
 package models;
-/**
- * @author Curtis (Yongjie Zhuang)
- *  Date of submission: 2018/11/11
- */
 
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-//A Cat class that models the individual cat. 
+/**
+ * A Cat class that models the individual cat.
+ * 
+ * @author Curtis Last modified on 25/May/2019
+ *
+ */
 public class Cat {
 
-    // The square that the cat is on.
+    /**
+     * The square that the cat is on.
+     */
     private int squareCat = 0;
-    
+
+    /**
+     * The width of each square of the game board.
+     */
     private int squareWidth;
+
+    /**
+     * The height of each square of the game baord.
+     */
     private int squareHeight;
 
     /**
@@ -27,16 +37,24 @@ public class Cat {
     private int positionY = 0;
 
     /**
-     * It's used in method - checkRelativePosition() for checking where is the
-     * relative position of dog to cat. For example, TOPLEFT refers to the dog is on
-     * the top left of the cat. It is used to identify where the cat should move.
+     * It refers to the relative position of dog to cat. For example, TOPLEFT refers
+     * to the dog is on the top left of the cat. It is used to identify where the
+     * cat should move.
      */
     enum DogRelativePosition {
 	TOP_LEFT, TOP, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, LEFT, SAME_SQUARE
     }
 
     /**
-     * It determines how the cat moves (the rules) 1 - 6. See method - move().
+     * It determines how the cat moves (the rules) 1 - 6. The rules are: If the
+     * number is 1-3, then the cat moves away from the dog. This should be to the
+     * square directly away from the dog, unless this would take the Cat to the edge
+     * of the grid, in which case it should stay still. If the number is 4 or 5, the
+     * Cat should move beside the Dog, i.e. it should move to a square adjacent to
+     * its start square and adjacent to the Dog. If the number is a 6 then the Cat
+     * should move to the same square as the Dog. If the Dog is on the same square
+     * as the Cat at the start of the turn, then the cat can move randomly to any
+     * adjacent square.
      */
     private int rule;
 
@@ -114,34 +132,36 @@ public class Cat {
      */
     public void move(int squareDog, int dogPositionX, int dogPositionY) {
 
+	DogRelativePosition relativePosition = checkRelativePosition(dogPositionX, dogPositionY);
+
 	if (squareCat == squareDog) {
 	    moveToAdjacentSquare(squareDog);
 	} else {
 	    if (rule == 6) {
 		moveToDog(squareDog, dogPositionX, dogPositionY);
 	    } else if (rule == 1 || rule == 2 || rule == 3) {
-		if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_LEFT) {
+		if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		    moveBottomRight();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP) {
+		} else if (relativePosition == DogRelativePosition.TOP) {
 		    moveDown();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_RIGHT) {
+		} else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
 		    moveBottomLeft();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.RIGHT) {
+		} else if (relativePosition == DogRelativePosition.RIGHT) {
 		    moveLeft();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_RIGHT) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
 		    moveTopLeft();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM) {
 		    moveUp();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_LEFT) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
 		    moveTopRight();
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.LEFT) {
+		} else if (relativePosition == DogRelativePosition.LEFT) {
 		    moveRight();
 		} else {
 		    System.out.println("Error 1 - Cat Class - move()" + squareDog + " " + squareCat);
 		}
 	    } else if (rule == 4 || rule == 5) {
 		// It refers to where the dog is at to cat.
-		if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_LEFT) {
+		if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		    // If it will not be on the same square as the dog after next move, cat moves
 		    // top left.
 		    if (squareDog - squareCat > 2) {
@@ -155,7 +175,7 @@ public class Cat {
 			    moveLeft();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP) {
+		} else if (relativePosition == DogRelativePosition.TOP) {
 		    if (squareDog - squareCat > 3) {
 			moveUp();
 		    } else {
@@ -170,7 +190,7 @@ public class Cat {
 			    moveRight();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.TOP_RIGHT) {
+		} else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
 		    if (squareDog - squareCat > 4) {
 			moveTopRight();
 		    } else {
@@ -181,7 +201,7 @@ public class Cat {
 			    moveRight();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.RIGHT) {
+		} else if (relativePosition == DogRelativePosition.RIGHT) {
 		    if (squareDog - squareCat > 1) {
 			moveRight();
 		    } else {
@@ -196,7 +216,7 @@ public class Cat {
 			    moveDown();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_RIGHT) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
 		    if (squareDog - squareCat < -2) {
 			moveBottomRight();
 		    } else {
@@ -207,7 +227,7 @@ public class Cat {
 			    moveDown();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM) {
 		    if (squareDog - squareCat > -3) {
 			moveDown();
 		    } else {
@@ -222,7 +242,7 @@ public class Cat {
 			    moveBottomLeft();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.BOTTOM_LEFT) {
+		} else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
 		    if (squareDog - squareCat < -4) {
 			moveBottomLeft();
 		    } else {
@@ -233,7 +253,7 @@ public class Cat {
 			    moveDown();
 			}
 		    }
-		} else if (checkRelativePosition(dogPositionX, dogPositionY) == DogRelativePosition.LEFT) {
+		} else if (relativePosition == DogRelativePosition.LEFT) {
 		    if (squareDog - squareCat > -1) {
 			moveLeft();
 		    } else {
@@ -253,38 +273,50 @@ public class Cat {
 		}
 	    }
 	}
-    }// End - move()
+    }
 
-    // Move to the square on the left. Square 7,4,1 are on the edge of the grid.
+    /**
+     * Move to the square on the left. Square 7,4, and 1 are on the edge of the
+     * grid.
+     */
     private void moveLeft() {
 	if (squareCat != 7 && squareCat != 4 && squareCat != 1) {
 	    positionX -= squareWidth;
 	}
     }
 
-    // Move to the square on the right. Square 9,6,3 are on the edge of the grid.
+    /**
+     * Move to the square on the right. Square 9,6, and 3 are on the edge of the
+     * grid.
+     */
     private void moveRight() {
 	if (squareCat != 9 && squareCat != 6 && squareCat != 3) {
 	    positionX += squareWidth;
 	}
     }
 
-    // Move to the square on the top. Square 7,8,9 are on the edge of the grid.
+    /**
+     * Move to the square on the top. Square 7,8, and 9 are on the edge of the grid.
+     */
     private void moveUp() {
 	if (squareCat != 7 && squareCat != 8 && squareCat != 9) {
 	    positionY -= squareHeight;
 	}
     }
 
-    // Move to the square below. Square 1,2,3 are on the edge of the grid.
+    /**
+     * Move to the square below. Square 1,2, and 3 are on the edge of the grid.
+     */
     private void moveDown() {
 	if (squareCat != 1 && squareCat != 2 && squareCat != 3) {
 	    positionY += squareHeight;
 	}
     }
 
-    // Move to the square on the top left. Square 1,4,7,8,9 are on the edge of the
-    // grid.
+    /**
+     * Move to the square on the top left. Square 1,4,7,8, and 9 are on the edge of
+     * the grid.
+     */
     private void moveTopLeft() {
 	if (squareCat != 1 && squareCat != 4 && squareCat != 7 && squareCat != 8 && squareCat != 9) {
 	    positionX -= squareWidth;
@@ -292,8 +324,10 @@ public class Cat {
 	}
     }
 
-    // Move to the square on the top right. Square 7,8,9,6,3 are on the edge of the
-    // grid.
+    /**
+     * Move to the square on the top right. Square 7,8,9,6, and 3 are on the edge of
+     * the grid.
+     */
     private void moveTopRight() {
 	if (squareCat != 7 && squareCat != 8 && squareCat != 9 && squareCat != 6 && squareCat != 3) {
 	    positionX += squareWidth;
@@ -301,8 +335,10 @@ public class Cat {
 	}
     }
 
-    // Move to the square on the bottom left. Square 7,4,1,2,3 are on the edge of
-    // the grid.
+    /**
+     * Move to the square on the bottom left. Square 7,4,1,2,and 3 are on the edge
+     * of the grid.
+     */
     private void moveBottomLeft() {
 	if (squareCat != 7 && squareCat != 4 && squareCat != 1 && squareCat != 2 && squareCat != 3) {
 	    positionX -= squareWidth;
@@ -310,8 +346,10 @@ public class Cat {
 	}
     }
 
-    // Move to the square on the bottom right. Square 1,2,3,6,9 are on the edge of
-    // the grid.
+    /**
+     * Move to the square on the bottom right. Square 1,2,3,6, and 9 are on the edge
+     * of the grid.
+     */
     private void moveBottomRight() {
 	if (squareCat != 1 && squareCat != 2 && squareCat != 3 && squareCat != 6 && squareCat != 9) {
 	    positionX += squareWidth;
@@ -319,7 +357,7 @@ public class Cat {
 	}
     }
 
-    /*
+    /**
      * When the cat is on the same square as the dog, the cat randomly moves to the
      * adjacent squares. It uses .nextInt() method to randomly generate a number.
      * The number than is used to choose where the cat moves. If the cat is going to
@@ -443,14 +481,14 @@ public class Cat {
 	    case 3:
 		if (squareDog != 2) {
 		    squareCat = 2;
-		    positionX +=squareWidth;
+		    positionX += squareWidth;
 		    positionY += squareHeight;
 		}
 		break;
 	    case 4:
 		if (squareDog != 1) {
 		    squareCat = 1;
-		    positionY+= squareHeight;
+		    positionY += squareHeight;
 		}
 		break;
 	    default:
@@ -546,7 +584,7 @@ public class Cat {
 	    case 4:
 		if (squareDog != 3) {
 		    squareCat = 3;
-		    positionY+= squareHeight;
+		    positionY += squareHeight;
 		}
 		break;
 	    default:
@@ -646,8 +684,15 @@ public class Cat {
 	}
     }
 
-    // Check the relative position between cat and dog for the move() method to
-    // decide where the cat should the go.
+    /**
+     * Check the relative position between cat and dog for the move() method to
+     * decide where the cat should the go.
+     * 
+     * @param dogPositionX x coordinate of the dog
+     * @param dogPositionY y coordinate of the dog
+     * @return the relative position of the dog. (e.g., the dog is on the top left
+     *         of the cat)
+     */
     private DogRelativePosition checkRelativePosition(int dogPositionX, int dogPositionY) {
 
 	// It checks relative position by comparing dog positions and cat positions.
@@ -684,13 +729,17 @@ public class Cat {
 	    // the dog is at the same square as the dog.
 	    return DogRelativePosition.SAME_SQUARE;
 	}
-    }// End - checkRelativePosition()
+    }
 
-    /*
+    /**
      * This method moves the cat until the cat is on the same square as the dog. The
      * methods such as moveTopLeft(), moveUp() and so on, they only update the
      * positionX and positionY for the drawCat() method to display the cat on the
      * grid.
+     * 
+     * @param squareDog    the square that the dog is on
+     * @param dogPositionX the x coordinate of the dog
+     * @param dogPositionY the y coordinate of the dog
      */
     private void moveToDog(int squareDog, int dogPositionX, int dogPositionY) {
 	if (squareCat != squareDog) {
@@ -727,18 +776,38 @@ public class Cat {
 	}
     }
 
+    /**
+     * Get the x coordinate of the cat
+     * 
+     * @return x coordinate of the cat
+     */
     public int getPositionX() {
 	return this.positionX;
     }
 
+    /**
+     * Get the y coordinate of the cat
+     * 
+     * @return y coordinate of the cat
+     */
     public int getPositionY() {
 	return this.positionY;
     }
-    
+
+    /**
+     * Set the square width of the game board
+     * 
+     * @param width the width of each square on the game board
+     */
     public void setSquareWidth(int width) {
 	this.squareWidth = width;
     }
-    
+
+    /**
+     * Set the square height of the game board
+     * 
+     * @param height the height of each square on the game board
+     */
     public void setSquareHeight(int height) {
 	this.squareHeight = height;
     }
