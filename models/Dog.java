@@ -43,6 +43,8 @@ public class Dog {
      * If newSquareDog for the dog is less than 1 and larger than 9, it moves the
      * dog to this illegitimate square. In this case, the main method will directly
      * skip the rest of the code and display "existing!".
+     * 
+     * @param newSquareDog the new square of the dog.
      */
     public boolean move(int newSquareDog) {
 	boolean moved;
@@ -88,41 +90,5 @@ public class Dog {
 	dogPositionX = newPositionX;
 	dogPositionY = newPositionY;
     }
-
-    /*
-     * This method is used to verify if the dog is moving to the adjacent squares.
-     * For example, if the dog is on square 1, the adjacent squares will be 4, 5 and
-     * 2.
-     */
-    private boolean isAdjacentSquare(int newSquare) {
-	boolean isAdjacentSquare;
-	if (squareDog == 1 && (newSquare == 4 || newSquare == 5 || newSquare == 2)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 2
-		&& (newSquare == 1 || newSquare == 4 || newSquare == 5 || newSquare == 6 || newSquare == 3)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 3 && (newSquare == 2 || newSquare == 5 || newSquare == 6)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 4
-		&& (newSquare == 7 || newSquare == 8 || newSquare == 5 || newSquare == 2 || newSquare == 1)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 5 && (newSquare == 1 || newSquare == 2 || newSquare == 3 || newSquare == 4
-		|| newSquare == 6 || newSquare == 7 || newSquare == 8 || newSquare == 9)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 6
-		&& (newSquare == 9 || newSquare == 8 || newSquare == 5 || newSquare == 2 || newSquare == 3)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 7 && (newSquare == 8 || newSquare == 5 || newSquare == 4)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 8
-		&& (newSquare == 7 || newSquare == 4 || newSquare == 5 || newSquare == 6 || newSquare == 9)) {
-	    isAdjacentSquare = true;
-	} else if (squareDog == 9 && (newSquare == 8 || newSquare == 5 || newSquare == 6)) {
-	    isAdjacentSquare = true;
-	} else {
-	    isAdjacentSquare = false;
-	}
-	return isAdjacentSquare;
-    }// End - isAdjacentSquare()
 
 }// Class - Dog
