@@ -1,27 +1,39 @@
 package models;
-/**
- * @author Curtis (Yongjie Zhuang)
- *  Date of submission: 2018/11/11
- */
 
-//Dog class that models every individual dog.
+/**
+ * Dog class that models every individual dog.
+ * @author Curtis
+ */
 public class Dog {
 
-    // The square that the dog is on.
+    /**
+     * The square that the dog is on.
+     */
     private int squareDog = 0;
 
-    // It's exactly where the dog is at.
-    private int dogPositionX;
-    private int dogPositionY;
-
-    /*
-     * These constants will determine how big the 'dog' symbol is. See method -
-     * drawDog()
+    /**
+     * The x coordinate of the dog.
      */
-    public static final int DOG_WIDTH = 5;
-    public static final int DOG_HEIGHT = 15;
+    private int dogPositionX;
+    
+    /**
+     * The y coordinate of the dog.
+     */
+    private int dogPositionY;
+    
+    /**
+     * Constructor for Dog class.
+     * @param square the square that the dog is on.
+     * @param dogX the x coordinate of the dog.
+     * @param dogY the y coordinate of the dog.
+     */
+    public Dog(int square, int dogX, int dogY) {
+	this.squareDog = square;
+	this.dogPositionX = dogX;
+	this.dogPositionY = dogY;
+    }
 
-    /*
+    /**
      * Move the dog to a new square. It also checks whether the new position is the
      * squares that are adjacent to current square, because the dog is only allowed
      * to move to the adjacent squares. The boolean value refers to whether the dog
@@ -54,7 +66,10 @@ public class Dog {
 	return moved;
     }// End - move()
 
-    // Return the square that the dog is on.
+    /**
+     * Return the square that the dog is on.
+     * @return
+     */
     public int getSquareDog() {
 	return squareDog;
     }
@@ -73,17 +88,6 @@ public class Dog {
 	dogPositionX = newPositionX;
 	dogPositionY = newPositionY;
     }
-
-    // Draw the dog based on the dogPositionX and dogPositionY. DOG_WIDTH and
-    // DOG_HEIGHT determine its size.
-    public void drawDog(EasyGraphics grid) {
-
-	grid.moveTo(dogPositionX, dogPositionY);
-	grid.lineTo(dogPositionX, dogPositionY - DOG_HEIGHT);
-	grid.lineTo(dogPositionX + DOG_WIDTH, dogPositionY - (DOG_HEIGHT / 3) * 2);
-	grid.lineTo(dogPositionX + DOG_WIDTH, dogPositionY - DOG_HEIGHT / 3);
-	grid.lineTo(dogPositionX, dogPositionY);
-    }// End - drawDog()
 
     /*
      * This method is used to verify if the dog is moving to the adjacent squares.
@@ -120,12 +124,5 @@ public class Dog {
 	}
 	return isAdjacentSquare;
     }// End - isAdjacentSquare()
-
-    // Constructor for Dog class.
-    public Dog(int square, int dogX, int dogY) {
-	this.squareDog = square;
-	this.dogPositionX = dogX;
-	this.dogPositionY = dogY;
-    }
 
 }// Class - Dog
