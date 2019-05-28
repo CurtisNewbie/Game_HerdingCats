@@ -37,9 +37,27 @@ public class GameView {
 	return gameBoardPanel.getSize();
     }
 
+    /**
+     * Set up the content pane.
+     * 
+     * @param cats An arraylist of int[]. Each array of int refers to a cat, wherein
+     *             the array: [0] and [1] refer to the x and y coordinate of each
+     *             cat.
+     * @param dogX the x coordinate of the dog.
+     * @param dogY the y coordinate of the dog.
+     */
     public void setUpGameBoard(ArrayList<int[]> cats, int dogX, int dogY) {
 	this.gameBoardPanel = new GameBoardPanel(cats, dogX, dogY);
 	gameFrame.setContentPane(this.gameBoardPanel);
+    }
+
+    /**
+     * Get the content pane.
+     * 
+     * @return
+     */
+    public JPanel getPanel() {
+	return this.gameBoardPanel;
     }
 
 }
