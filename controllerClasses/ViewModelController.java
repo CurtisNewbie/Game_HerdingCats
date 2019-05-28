@@ -3,6 +3,8 @@ package controllerClasses;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,8 +24,6 @@ public class ViewModelController {
     private Dog dog;
     private Dimension gameBoardSize;
 
-//    private HerdingCats mainGameModel;
-
     public ViewModelController(GameView gameView) {
 	this.gameView = gameView;
 	gameBoardSize = gameView.getGameFrame().getSize();
@@ -31,6 +31,7 @@ public class ViewModelController {
 
 	// Associate listeners:
 	gameView.addResizingComponentListener(new WindowResizingHandler());
+	gameView.addKeyboardControlListener(new KeyControlHandler());
     }
 
     private void initiateGame() {
@@ -132,7 +133,7 @@ public class ViewModelController {
 
 		    // the centre position of the square that the cat is on
 		    int thisCatSquare = c.getSquareCat();
-		    
+
 		    // calculate the x and y distance between the cat and the centre point, and
 		    // update the distance according to the changing rates.
 		    double xDistanceToCentre = ((double) getCentrePositionX(thisCatSquare, widthPrev) - catX) * xChange;
@@ -154,4 +155,33 @@ public class ViewModelController {
 	}
     }
 
+    private class KeyControlHandler extends KeyAdapter {
+	@Override
+	public void keyPressed(KeyEvent e) {
+	    // TODO Auto-generated method stub
+	    super.keyPressed(e);
+	    int dogCurSquare = dog.getSquare();
+	    
+	    if (e.getKeyCode() == KeyEvent.VK_UP) {
+		if (dogCurSquare != 7 && dogCurSquare != 8 && dogCurSquare != 9) {
+		    dog.setSquare(dogCurSquare + 3);
+		}
+	    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+		if (dogCurSquare != 1 && dogCurSquare != 2 && dogCurSquare != 3) {
+		    dog.setSquare(dogCurSquare - 3);
+		}
+	    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if (dogCurSquare != 1 && dogCurSquare != 4 && dogCurSquare != 7) {
+		    dog.setSquare(dogCurSquare - 1);
+		}
+	    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		if (dogCurSquare != 3 && dogCurSquare != 6 && dogCurSquare != 9) {
+		    dog.setSquare(dogCurSquare + 1);
+		}
+	    }
+	    gameView.getPanel().setDogX(getCentrePositionX(dog.getSquare(), gameBoardSize.width));
+	    gameView.getPanel().setDogY(getCentrePositionY(dog.getSquare(), gameBoardSize.height));
+	    gameView.getGameFrame().repaint();
+	}
+    }
 }

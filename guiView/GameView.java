@@ -2,7 +2,9 @@ package guiView;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
@@ -63,6 +65,14 @@ public class GameView {
      */
     public void addResizingComponentListener(ComponentListener cl) {
 	gameBoardPanel.addComponentListener(cl);;
+    }
+    
+    /**
+     * Associate a key listener to the gameBoardPanel/ content pane.
+     * @param kl a key listener
+     */
+    public void addKeyboardControlListener(KeyListener kl) {
+	gameFrame.addKeyListener(kl);
     }
     
     /**
