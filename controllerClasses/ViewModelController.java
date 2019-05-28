@@ -121,27 +121,30 @@ public class ViewModelController {
 	    gameView.getPanel().setDogX(getCentrePositionX(dog.getSquare(), gameBoardSize.width));
 	    gameView.getPanel().setDogY(getCentrePositionY(dog.getSquare(), gameBoardSize.height));
 
+	    // the changing rates of height and width.
 	    double yChange = ((double) gameBoardSize.height / (double) heightPrev);
 	    double xChange = ((double) gameBoardSize.width / (double) widthPrev);
 	    if (!(xChange == 1.0 && yChange == 1.0)) {
 		for (Cat c : cats) {
+		    // original positions of the cat
 		    double catX = c.getPositionX();
 		    double catY = c.getPositionY();
-		    // Update cats
 
+		    // the centre position of the square that the cat is on
 		    int thisCatSquare = c.getSquareCat();
-		    int eachSquareWidth = gameBoardSize.width / 3;
-		    int eachSquareHeight = gameBoardSize.height / 3;
-
+		    
+		    // calculate the x and y distance between the cat and the centre point, and
+		    // update the distance according to the changing rates.
 		    double xDistanceToCentre = ((double) getCentrePositionX(thisCatSquare, widthPrev) - catX) * xChange;
 		    double yDistanceToCentre = ((double) getCentrePositionY(thisCatSquare, heightPrev) - catY)
 			    * yChange;
-
+		    // update the new positions of the cat based on the distance between the cat and
+		    // the centre point.
 		    c.setPositionX((getCentrePositionX(thisCatSquare, gameBoardSize.width) - xDistanceToCentre));
 		    c.setPositionY((getCentrePositionY(thisCatSquare, gameBoardSize.height) - yDistanceToCentre));
 		}
 
-		// update cots displayed positions
+		// update cats displayed positions
 		ArrayList<double[]> newCatsPositions = new ArrayList<>();
 		for (Cat c : cats) {
 		    newCatsPositions.add(new double[] { c.getPositionX(), c.getPositionY() });
