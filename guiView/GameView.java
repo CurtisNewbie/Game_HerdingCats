@@ -2,6 +2,7 @@ package guiView;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
@@ -33,10 +34,6 @@ public class GameView {
 	gameFrame.repaint();
     }
 
-    public Dimension getGameBoardSize() {
-	return gameBoardPanel.getSize();
-    }
-
     /**
      * Set up the content pane.
      * 
@@ -58,6 +55,22 @@ public class GameView {
      */
     public JPanel getPanel() {
 	return this.gameBoardPanel;
+    }
+    
+    /**
+     * Associate a component listener to the gameBoardPanel/ content pane.
+     * @param wl a window listener
+     */
+    public void addResizingComponentListener(ComponentListener cl) {
+	gameBoardPanel.addComponentListener(cl);;
+    }
+    
+    /**
+     * Get the JFrame of this game.
+     * @return A JFrame represents the 'window' of this game.
+     */
+    public JFrame getGameFrame() {
+	return this.gameFrame;
     }
 
 }
