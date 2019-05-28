@@ -10,29 +10,15 @@ public class Dog {
     /**
      * The square that the dog is on.
      */
-    private int squareDog = 0;
-
-    /**
-     * The x coordinate of the dog.
-     */
-    private int dogPositionX;
-
-    /**
-     * The y coordinate of the dog.
-     */
-    private int dogPositionY;
+    private int square = 0;
 
     /**
      * Constructor for Dog class.
      * 
      * @param square the square that the dog is on.
-     * @param dogX   the x coordinate of the dog.
-     * @param dogY   the y coordinate of the dog.
      */
-    public Dog(int square, int dogX, int dogY) {
-	this.squareDog = square;
-	this.dogPositionX = dogX;
-	this.dogPositionY = dogY;
+    public Dog(int square) {
+	this.square = square;
     }
 
     /**
@@ -41,7 +27,7 @@ public class Dog {
      * @param newSquareDog the new square of the dog.
      */
     public void setSquare(int newSquareDog) {
-	this.squareDog = newSquareDog;
+	this.square = newSquareDog;
     }
 
     /**
@@ -49,34 +35,8 @@ public class Dog {
      * 
      * @return
      */
-    public int getSquareDog() {
-	return squareDog;
-    }
-
-    /**
-     * get dogPositionX
-     * @return x coordinate of the dog.
-     */
-    public int getDogPositionX() {
-	return dogPositionX;
-    }
-
-    /**
-     * get dogPositionY
-     * @return y coordinate of the dog.
-     */
-    public int getDogPositionY() {
-	return dogPositionY;
-    }
-
-    /**
-     * set the positions of the dog.
-     * @param newPositionX new x coordinate of the dog.
-     * @param newPositionY new y coordinate of the dog.
-     */
-    public void setDogPositions(int newPositionX, int newPositionY) {
-	dogPositionX = newPositionX;
-	dogPositionY = newPositionY;
+    public int getSquare() {
+	return square;
     }
 
 }// Class - Dog
