@@ -6,6 +6,8 @@ import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JPanel;
+
 import guiView.GameBoardPanel;
 import guiView.GameView;
 import models.Cat;
@@ -15,23 +17,25 @@ public class ViewModelController {
 
     private final int MAX_RULE = 6;
 
-    private GameView gameFrame;
+    private GameView gameView;
     private ArrayList<Cat> cats;
     private Dog dog;
     private Dimension gameBoardSize;
-    
+
 //    private HerdingCats mainGameModel;
 
-    public ViewModelController(GameView gameFrame) {
-	this.gameFrame = gameFrame;
+    public ViewModelController(GameView gameView) {
+	this.gameView = gameView;
+	gameBoardSize = gameView.getGameFrame().getSize();
 	this.initiateGame();
-	gameBoardSize = gameFrame.getPanel().getSize();
-	
-	//Associate listeners:
-	gameFrame.addResizingComponentListener(new WindowResizingHandler());
+
+	// Associate listeners:
+	gameView.addResizingComponentListener(new WindowResizingHandler());
     }
 
     private void initiateGame() {
+
+	// new cats
 	cats = new ArrayList<>();
 	for (int x = 0; x < 10; x++) {
 	    cats.add(new Cat(
@@ -40,17 +44,17 @@ public class ViewModelController {
 			    + new Random().nextInt(gameBoardSize.height + GameBoardPanel.CAT_HEIGHT + 1),
 		    1 + new Random().nextInt(MAX_RULE)));
 	}
+	ArrayList<double[]> catsPosition = new ArrayList<>();
+	for (Cat eachCat : cats) {
+	    catsPosition.add(new double[] { eachCat.getPositionX(), eachCat.getPositionY() });
+	}
+	// New dog
 	int dogSquare = new Random().nextInt(9) + 1;
+	dog = new Dog(dogSquare);
 	int dogX = getCentrePositionX(dogSquare, gameBoardSize.width);
 	int dogY = getCentrePositionY(dogSquare, gameBoardSize.height);
 
-	dog = new Dog(dogSquare, dogX, dogY);
-
-	ArrayList<int[]> catsPosition = new ArrayList<>();
-	for (Cat eachCat : cats) {
-	    catsPosition.add(new int[] { eachCat.getPositionX(), eachCat.getPositionY() });
-	}
-	gameFrame.setUpGameBoard(catsPosition, dogX, dogY);
+	gameView.setUpGameBoard(catsPosition, dogX, dogY);
     }
 
     private int getCentrePositionX(int square, int gameBoardWidth) {
@@ -104,15 +108,47 @@ public class ViewModelController {
     }
 
     private class WindowResizingHandler extends ComponentAdapter {
-	
+
 	@Override
 	public void componentResized(ComponentEvent e) {
 	    super.componentResized(e);
-	    gameBoardSize = gameFrame.getPanel().getSize();
+
+	    int widthPrev = gameBoardSize.width;
+	    int heightPrev = gameBoardSize.height;
+	    gameBoardSize = gameView.getPanel().getSize();
+
+	    // update dog displayed positions
+	    gameView.getPanel().setDogX(getCentrePositionX(dog.getSquare(), gameBoardSize.width));
+	    gameView.getPanel().setDogY(getCentrePositionY(dog.getSquare(), gameBoardSize.height));
+
+	    double yChange = ((double) gameBoardSize.height / (double) heightPrev);
+	    double xChange = ((double) gameBoardSize.width / (double) widthPrev);
+	    if (!(xChange == 1.0 && yChange == 1.0)) {
+		for (Cat c : cats) {
+		    double catX = c.getPositionX();
+		    double catY = c.getPositionY();
+		    // Update cats
+
+		    int thisCatSquare = c.getSquareCat();
+		    int eachSquareWidth = gameBoardSize.width / 3;
+		    int eachSquareHeight = gameBoardSize.height / 3;
+
+		    double xDistanceToCentre = ((double) getCentrePositionX(thisCatSquare, widthPrev) - catX) * xChange;
+		    double yDistanceToCentre = ((double) getCentrePositionY(thisCatSquare, heightPrev) - catY)
+			    * yChange;
+
+		    c.setPositionX((getCentrePositionX(thisCatSquare, gameBoardSize.width) - xDistanceToCentre));
+		    c.setPositionY((getCentrePositionY(thisCatSquare, gameBoardSize.height) - yDistanceToCentre));
+		}
+
+		// update cots displayed positions
+		ArrayList<double[]> newCatsPositions = new ArrayList<>();
+		for (Cat c : cats) {
+		    newCatsPositions.add(new double[] { c.getPositionX(), c.getPositionY() });
+		}
+		gameView.getPanel().updateCatPositions(newCatsPositions);
+	    }
 	}
     }
 
-
 }
-
-

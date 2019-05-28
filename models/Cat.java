@@ -29,12 +29,12 @@ public class Cat {
     /**
      * The X coordinate of the cat's position.
      */
-    private int positionX = 0;
+    private double positionX = 0;
 
     /**
      * The Y coordinate of the cat's position.
      */
-    private int positionY = 0;
+    private double positionY = 0;
 
     /**
      * It refers to the relative position of dog to cat. For example, TOPLEFT refers
@@ -781,7 +781,7 @@ public class Cat {
      * 
      * @return x coordinate of the cat
      */
-    public int getPositionX() {
+    public double getPositionX() {
 	return this.positionX;
     }
 
@@ -790,7 +790,7 @@ public class Cat {
      * 
      * @return y coordinate of the cat
      */
-    public int getPositionY() {
+    public double getPositionY() {
 	return this.positionY;
     }
 
@@ -810,5 +810,21 @@ public class Cat {
      */
     public void setSquareHeight(int height) {
 	this.squareHeight = height;
+    }
+    
+    /**
+     * Set position x.
+     * @param x x coordinate
+     */
+    public void setPositionX(double x) {
+	this.positionX = x;
+    }
+    
+    /**
+     * Set position y.
+     * @param y y coordinate
+     */
+    public void setPositionY(double y) {
+	this.positionY = y;
     }
 }

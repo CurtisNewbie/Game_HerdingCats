@@ -8,5 +8,6 @@ public class MainExe {
 	public static void main(String args[]) {
 		GameView view = new GameView();
 		ViewModelController controller = new ViewModelController(view);
+		view.getGameFrame().repaint();
 	}
 }

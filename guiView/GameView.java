@@ -17,7 +17,7 @@ public class GameView {
     private final Dimension frameDim;
 
     private JFrame gameFrame;
-    private JPanel gameBoardPanel;
+    private GameBoardPanel gameBoardPanel;
 
     public GameView() {
 
@@ -43,7 +43,7 @@ public class GameView {
      * @param dogX the x coordinate of the dog.
      * @param dogY the y coordinate of the dog.
      */
-    public void setUpGameBoard(ArrayList<int[]> cats, int dogX, int dogY) {
+    public void setUpGameBoard(ArrayList<double[]> cats, int dogX, int dogY) {
 	this.gameBoardPanel = new GameBoardPanel(cats, dogX, dogY);
 	gameFrame.setContentPane(this.gameBoardPanel);
     }
@@ -51,10 +51,10 @@ public class GameView {
     /**
      * Get the content pane.
      * 
-     * @return
+     * @return gameBoardPanel
      */
-    public JPanel getPanel() {
-	return this.gameBoardPanel;
+    public GameBoardPanel getPanel() {
+	return gameBoardPanel;
     }
     
     /**
