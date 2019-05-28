@@ -32,8 +32,6 @@ public class GameView {
 	gameFrame.setSize(frameDim);
 
 	gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	gameFrame.setVisible(true);
-	gameFrame.repaint();
     }
 
     /**
