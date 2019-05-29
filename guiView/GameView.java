@@ -16,8 +16,7 @@ import models.Cat;
 public class GameView {
 
     // default size of this game's frame
-    private final Dimension frameDim;
-
+    public final Dimension FRAME_DEFAULT_DIM = new Dimension(960, 960);
     private JFrame gameFrame;
     private GameBoardPanel gameBoardPanel;
 
@@ -28,8 +27,7 @@ public class GameView {
 
 	// set screen size
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	frameDim = new Dimension(screenSize.width / 2, screenSize.height / 2);
-	gameFrame.setSize(frameDim);
+	gameFrame.setSize(FRAME_DEFAULT_DIM);
 
 	gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -56,25 +54,29 @@ public class GameView {
     public GameBoardPanel getPanel() {
 	return gameBoardPanel;
     }
-    
+
     /**
      * Associate a component listener to the gameBoardPanel/ content pane.
+     * 
      * @param wl a window listener
      */
     public void addResizingComponentListener(ComponentListener cl) {
-	gameBoardPanel.addComponentListener(cl);;
+	gameBoardPanel.addComponentListener(cl);
+	;
     }
-    
+
     /**
      * Associate a key listener to the gameBoardPanel/ content pane.
+     * 
      * @param kl a key listener
      */
     public void addKeyboardControlListener(KeyListener kl) {
 	gameFrame.addKeyListener(kl);
     }
-    
+
     /**
      * Get the JFrame of this game.
+     * 
      * @return A JFrame represents the 'window' of this game.
      */
     public JFrame getGameFrame() {

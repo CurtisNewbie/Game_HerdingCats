@@ -26,7 +26,6 @@ public class ViewModelController {
 
     public ViewModelController(GameView gameView) {
 	this.gameView = gameView;
-	gameBoardSize = gameView.getGameFrame().getSize();
 	this.initiateGame();
 
 	// Associate listeners:
@@ -35,14 +34,15 @@ public class ViewModelController {
     }
 
     private void initiateGame() {
-
+	// The defualt size of the panel
+	gameBoardSize = gameView.FRAME_DEFAULT_DIM;
 	// new cats
 	cats = new ArrayList<>();
-	for (int x = 0; x < 10; x++) {
+	for (int x = 0; x < 8; x++) {
 	    cats.add(new Cat(
 		    GameBoardPanel.CAT_WIDTH + new Random().nextInt(gameBoardSize.width - GameBoardPanel.CAT_WIDTH + 1),
 		    GameBoardPanel.CAT_HEIGHT
-			    + new Random().nextInt(gameBoardSize.height + GameBoardPanel.CAT_HEIGHT + 1),
+			    + new Random().nextInt(gameBoardSize.height - GameBoardPanel.CAT_HEIGHT + 1),
 		    1 + new Random().nextInt(MAX_RULE)));
 	}
 	ArrayList<double[]> catsPosition = new ArrayList<>();
@@ -145,6 +145,8 @@ public class ViewModelController {
 			    * yChange;
 		    // update the new positions of the cat based on the distance between the cat and
 		    // the centre point.
+		    c.setSquareHeight(gameBoardSize.height/3);
+		    c.setSquareWidth(gameBoardSize.width/3);
 		    c.setPositionX((getCentrePositionX(thisCatSquare, gameBoardSize.width) - xDistanceToCentre));
 		    c.setPositionY((getCentrePositionY(thisCatSquare, gameBoardSize.height) - yDistanceToCentre));
 		}
@@ -164,43 +166,47 @@ public class ViewModelController {
 	public void keyPressed(KeyEvent e) {
 	    // TODO Auto-generated method stub
 	    super.keyPressed(e);
-	    int dogCurSquare = dog.getSquare();
+	    int key = e.getKeyCode();
+	    if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT
+		    || key == KeyEvent.VK_RIGHT) {
 
-	    if (e.getKeyCode() == KeyEvent.VK_UP) {
-		if (dogCurSquare != 7 && dogCurSquare != 8 && dogCurSquare != 9) {
-		    dog.setSquare(dogCurSquare + 3);
-		}
-	    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-		if (dogCurSquare != 1 && dogCurSquare != 2 && dogCurSquare != 3) {
-		    dog.setSquare(dogCurSquare - 3);
-		}
-	    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-		if (dogCurSquare != 1 && dogCurSquare != 4 && dogCurSquare != 7) {
-		    dog.setSquare(dogCurSquare - 1);
-		}
-	    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-		if (dogCurSquare != 3 && dogCurSquare != 6 && dogCurSquare != 9) {
-		    dog.setSquare(dogCurSquare + 1);
-		}
-	    }
-	    int dogNewX = getCentrePositionX(dog.getSquare(), gameBoardSize.width);
-	    int dogNewY = getCentrePositionY(dog.getSquare(), gameBoardSize.height);
-	    gameView.getPanel().setDogX(dogNewX);
-	    gameView.getPanel().setDogY(dogNewY);
+		int dogCurSquare = dog.getSquare();
 
-	    // Update cats positions
-	    for (Cat c : cats) {
-		c.setSquareHeight(gameBoardSize.height);
-		c.setSquareWidth(gameBoardSize.width);
-		c.move(dog.getSquare());
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+		    if (dogCurSquare != 7 && dogCurSquare != 8 && dogCurSquare != 9) {
+			dog.setSquare(dogCurSquare + 3);
+		    }
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+		    if (dogCurSquare != 1 && dogCurSquare != 2 && dogCurSquare != 3) {
+			dog.setSquare(dogCurSquare - 3);
+		    }
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		    if (dogCurSquare != 1 && dogCurSquare != 4 && dogCurSquare != 7) {
+			dog.setSquare(dogCurSquare - 1);
+		    }
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		    if (dogCurSquare != 3 && dogCurSquare != 6 && dogCurSquare != 9) {
+			dog.setSquare(dogCurSquare + 1);
+		    }
+		}
+		int dogNewX = getCentrePositionX(dog.getSquare(), gameBoardSize.width);
+		int dogNewY = getCentrePositionY(dog.getSquare(), gameBoardSize.height);
+		gameView.getPanel().setDogX(dogNewX);
+		gameView.getPanel().setDogY(dogNewY);
+
+		// Update cats positions
+		for (Cat c : cats) {
+		    c.move(dog.getSquare());
+		}
+		ArrayList<double[]> newCatsPositions = new ArrayList<>();
+		// displayed cats positions
+		for (Cat c : cats) {
+		    newCatsPositions.add(new double[] { c.getPositionX(), c.getPositionY() });
+		}
+
+		gameView.getPanel().updateCatPositions(newCatsPositions);
+		gameView.getGameFrame().repaint();
 	    }
-	    ArrayList<double[]> newCatsPositions = new ArrayList<>();
-	    // displayed cats positions
-	    for(Cat c: cats) {
-		newCatsPositions.add(new double[] {c.getPositionX(),c.getPositionY()});
-	    }
-	    gameView.getPanel().updateCatPositions(newCatsPositions);
-	    gameView.getGameFrame().repaint();
 	}
     }
 }

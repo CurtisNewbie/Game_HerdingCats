@@ -38,6 +38,14 @@ public class GameBoardPanel extends JPanel {
     private int dogX;
     private int dogY;
 
+    /** Constructor
+     * 
+     * @param cats an ArrayList of double[] which represents the x coordinate and y
+     *             coordinate for all the cats. Within the double[], the [0] is the x
+     *             coordinate and the [1] is the y coordinate.
+     * @param dogX x coordinate of the dog.
+     * @param dogY y coordinate of the dog.
+     */
     public GameBoardPanel(ArrayList<double[]> cats, int dogX, int dogY) {
 	this.cats = cats;
 	this.dogX = dogX;

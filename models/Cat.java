@@ -76,18 +76,19 @@ public class Cat {
      * positionY.
      */
     public void checkSquare() {
-	if (positionY >= squareHeight * 2 && positionY <= squareHeight*3 && positionX >= 0 && positionX < squareWidth) {
+	if (positionY >= squareHeight * 2 && positionY <= squareHeight * 3 && positionX >= 0
+		&& positionX < squareWidth) {
 	    this.squareCat = 1;
-	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight*3)
+	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight * 3)
 		&& (positionX >= squareWidth && positionX < squareWidth * 2)) {
 	    this.squareCat = 2;
-	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight*3)
+	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight * 3)
 		&& (positionX >= squareWidth * 2 && positionX <= squareWidth * 3)) {
 	    this.squareCat = 3;
 	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
 		&& (positionX >= 0 && positionX < squareWidth)) {
 	    this.squareCat = 4;
-	} else if ((positionY >= squareHeight && positionY < squareHeight* 2)
+	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
 		&& (positionX >= squareWidth && positionX < squareWidth * 2)) {
 	    this.squareCat = 5;
 	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
@@ -102,7 +103,6 @@ public class Cat {
 		&& (positionX >= squareWidth * 2 && positionX <= squareWidth * 3)) {
 	    this.squareCat = 9;
 	} else {
-	  
 	}
     }
 
@@ -155,7 +155,7 @@ public class Cat {
 		} else if (relativePosition == DogRelativePosition.LEFT) {
 		    moveRight();
 		} else {
-		    
+
 		}
 	    } else if (rule == 4 || rule == 5) {
 		// It refers to where the dog's relative position to cat.
@@ -278,9 +278,9 @@ public class Cat {
      * grid.
      */
     private void moveLeft() {
-	if (squareCat != 7 && squareCat != 4 && squareCat != 1) {
+	if (positionX - squareWidth >= 0) {
 	    positionX -= squareWidth;
-	    squareCat--;
+	    this.checkSquare();
 	}
     }
 
@@ -289,9 +289,9 @@ public class Cat {
      * grid.
      */
     private void moveRight() {
-	if (squareCat != 9 && squareCat != 6 && squareCat != 3) {
+	if (positionX + squareWidth <= squareWidth * 3) {
 	    positionX += squareWidth;
-	    squareCat++;
+	    this.checkSquare();
 	}
     }
 
@@ -299,9 +299,9 @@ public class Cat {
      * Move to the square on the top. Square 7,8, and 9 are on the edge of the grid.
      */
     private void moveUp() {
-	if (squareCat != 7 && squareCat != 8 && squareCat != 9) {
+	if (positionY - squareHeight >= 0) {
 	    positionY -= squareHeight;
-	    squareCat += 3;
+	    this.checkSquare();
 	}
     }
 
@@ -309,9 +309,9 @@ public class Cat {
      * Move to the square below. Square 1,2, and 3 are on the edge of the grid.
      */
     private void moveDown() {
-	if (squareCat != 1 && squareCat != 2 && squareCat != 3) {
+	if (positionY + squareHeight <= squareHeight * 3) {
 	    positionY += squareHeight;
-	    squareCat -= 3;
+	    this.checkSquare();
 	}
     }
 
@@ -320,10 +320,10 @@ public class Cat {
      * the grid.
      */
     private void moveTopLeft() {
-	if (squareCat != 1 && squareCat != 4 && squareCat != 7 && squareCat != 8 && squareCat != 9) {
+	if (positionX - squareWidth >= 0 && positionY - squareHeight >= 0) {
 	    positionX -= squareWidth;
 	    positionY -= squareHeight;
-	    squareCat += 2;
+	    this.checkSquare();
 	}
     }
 
@@ -332,10 +332,10 @@ public class Cat {
      * the grid.
      */
     private void moveTopRight() {
-	if (squareCat != 7 && squareCat != 8 && squareCat != 9 && squareCat != 6 && squareCat != 3) {
+	if (positionX + squareWidth <= squareWidth * 3 && positionY - squareHeight >= 0) {
 	    positionX += squareWidth;
 	    positionY -= squareHeight;
-	    squareCat += 4;
+	    this.checkSquare();
 	}
     }
 
@@ -344,10 +344,10 @@ public class Cat {
      * of the grid.
      */
     private void moveBottomLeft() {
-	if (squareCat != 7 && squareCat != 4 && squareCat != 1 && squareCat != 2 && squareCat != 3) {
+	if (positionX - squareWidth >= 0 && positionY + squareHeight <= squareHeight * 3) {
 	    positionX -= squareWidth;
 	    positionY += squareHeight;
-	    squareCat -= 4;
+	    this.checkSquare();
 	}
     }
 
@@ -356,10 +356,10 @@ public class Cat {
      * of the grid.
      */
     private void moveBottomRight() {
-	if (squareCat != 1 && squareCat != 2 && squareCat != 3 && squareCat != 6 && squareCat != 9) {
+	if (positionX + squareWidth <= squareHeight * 3 && positionY + squareHeight <= squareHeight * 3) {
 	    positionX += squareWidth;
 	    positionY += squareHeight;
-	    squareCat -= 2;
+	    this.checkSquare();
 	}
     }
 
@@ -368,7 +368,7 @@ public class Cat {
      * adjacent squares. It uses .nextInt() method to randomly generate a number.
      * The number than is used to choose where the cat moves. If the cat is going to
      * the square that the Dog is on, the cat stays.
-     * 
+     * <p>
      * E.g: In first situation, if the cat is on square 1. It generates a random
      * number from 0 to 2. If the random number is 0, checks if the dog is on square
      * 4, if not the cat moves to square 4.
@@ -379,21 +379,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionY += squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    default:
@@ -404,34 +400,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionX += squareWidth;
+		    this.moveBottomRight();
 		}
 		break;
 	    default:
@@ -442,21 +431,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    default:
@@ -467,34 +452,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionY -= squareHeight;
-		    positionX += squareWidth;
+		    this.moveTopRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -505,54 +483,42 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    case 2:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 3:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 4:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 5:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 6:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 7:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    default:
@@ -563,34 +529,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -601,21 +560,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -626,34 +581,28 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    default:
@@ -664,21 +613,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -764,7 +709,7 @@ public class Cat {
 		moveLeft();
 
 	    } else {
-		
+
 	    }
 	}
     }
@@ -821,5 +766,14 @@ public class Cat {
      */
     public void setPositionY(double y) {
 	this.positionY = y;
+    }
+
+    /**
+     * get the rule of this cat's movement.
+     * 
+     * @return rule the rule of this cat's movement.
+     */
+    public int getRule() {
+	return this.rule;
     }
 }
