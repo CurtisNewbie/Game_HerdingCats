@@ -1,2 +1,4 @@
 /ViewModelController.class
 /ViewModelController$WindowHandler.class
+/ViewModelController$WindowResizingHandler.class
+/ViewModelController$KeyControlHandler.class

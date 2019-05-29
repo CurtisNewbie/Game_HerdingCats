@@ -14,7 +14,7 @@ public class Cat {
     /**
      * The square that the cat is on.
      */
-    private int squareCat = 0;
+    private int squareCat;
 
     /**
      * The width of each square of the game board.
@@ -29,12 +29,12 @@ public class Cat {
     /**
      * The X coordinate of the cat's position.
      */
-    private int positionX = 0;
+    private double positionX;
 
     /**
      * The Y coordinate of the cat's position.
      */
-    private int positionY = 0;
+    private double positionY;
 
     /**
      * It refers to the relative position of dog to cat. For example, TOPLEFT refers
@@ -75,41 +75,35 @@ public class Cat {
      * Check which square that the cat is on through checking the positionX and
      * positionY.
      */
-    public void checkSquare(int SQUARE_SIZE) {
-	if (positionX >= 0 && positionX <= SQUARE_SIZE && positionY >= 0 && positionY <= SQUARE_SIZE) {
-	    squareCat = 1;
-	} else if (positionX >= (SQUARE_SIZE) && positionX <= (SQUARE_SIZE * 2) && positionY >= 0
-		&& positionY <= SQUARE_SIZE) {
-	    squareCat = 2;
-	} else if (positionX >= (SQUARE_SIZE * 2) && positionX <= SQUARE_SIZE * 3 && positionY >= 0
-		&& positionY <= SQUARE_SIZE) {
-	    squareCat = 3;
-	} else if (positionX >= 0 && positionX <= (SQUARE_SIZE) && positionY >= (SQUARE_SIZE)
-		&& positionY <= (SQUARE_SIZE * 2)) {
-	    squareCat = 4;
-	} else if (positionX >= (SQUARE_SIZE) && positionX <= (SQUARE_SIZE * 2) && positionY >= (SQUARE_SIZE)
-		&& positionY <= (SQUARE_SIZE * 2)) {
-	    squareCat = 5;
-	} else if (positionX >= (SQUARE_SIZE * 2) && positionX <= SQUARE_SIZE * 3 && positionY >= (SQUARE_SIZE)
-		&& positionY <= (SQUARE_SIZE * 2)) {
-	    squareCat = 6;
-	} else if (positionX >= 0 && positionX <= (SQUARE_SIZE) && positionY >= (SQUARE_SIZE * 2)
-		&& positionY <= SQUARE_SIZE * 3) {
-	    squareCat = 7;
-	} else if (positionX >= (SQUARE_SIZE) && positionX <= (SQUARE_SIZE * 2) && positionY >= (SQUARE_SIZE * 2)
-		&& positionY <= SQUARE_SIZE * 3) {
-	    squareCat = 8;
-	} else if (positionX >= (SQUARE_SIZE * 2) && positionX <= SQUARE_SIZE * 3 && positionY >= (SQUARE_SIZE * 2)
-		&& positionY <= SQUARE_SIZE * 3) {
-	    squareCat = 9;
+    public void checkSquare() {
+	if (positionY >= squareHeight * 2 && positionY <= squareHeight * 3 && positionX >= 0
+		&& positionX < squareWidth) {
+	    this.squareCat = 1;
+	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight * 3)
+		&& (positionX >= squareWidth && positionX < squareWidth * 2)) {
+	    this.squareCat = 2;
+	} else if ((positionY >= squareHeight * 2 && positionY <= squareHeight * 3)
+		&& (positionX >= squareWidth * 2 && positionX <= squareWidth * 3)) {
+	    this.squareCat = 3;
+	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
+		&& (positionX >= 0 && positionX < squareWidth)) {
+	    this.squareCat = 4;
+	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
+		&& (positionX >= squareWidth && positionX < squareWidth * 2)) {
+	    this.squareCat = 5;
+	} else if ((positionY >= squareHeight && positionY < squareHeight * 2)
+		&& (positionX >= squareWidth * 2 && positionX <= squareWidth * 3)) {
+	    this.squareCat = 6;
+	} else if ((positionY >= 0 && positionY < squareHeight) && (positionX >= 0 && positionX < squareWidth)) {
+	    this.squareCat = 7;
+	} else if ((positionY >= 0 && positionY < squareHeight)
+		&& (positionX >= squareWidth && positionX < squareWidth * 2)) {
+	    this.squareCat = 8;
+	} else if ((positionY >= 0 && positionY < squareHeight)
+		&& (positionX >= squareWidth * 2 && positionX <= squareWidth * 3)) {
+	    this.squareCat = 9;
 	} else {
-	    // error message
-	    JOptionPane.showMessageDialog(null, "Error - Cat Class - checkSquare()", "Error",
-		    JOptionPane.WARNING_MESSAGE);
-//	    System.out.println("Error - Cat Class - checkSquare()");
 	}
-
-//	System.out.println("Rule: " + rule + "| x:" + positionX + "| y:" + positionY + "| square: " + squareCat);
     }
 
     /**
@@ -124,21 +118,25 @@ public class Cat {
     /**
      * It moves the cat in response to the position of dog according to its rule (1
      * - 6). If the cat is on the same square as the dog, the cat moves randomly to
-     * the adjacent squares excluding the square that it's currently on. If rule =
-     * 6, cat moves to the same square as the dog. If rule equals 1, 2 or 3, the cat
-     * moves directly away from the dog. Cat will stay if it reachs the edge. If the
-     * rule equals 4 or 5, the cat randomly moves beside the dog, while it will not
-     * be on the same square as the dog.
+     * the adjacent squares excluding the square that it's currently on.
+     * <p>
+     * If rule = 6, cat moves to the same square as the dog.
+     * <p>
+     * If rule equals 1, 2 or 3, the cat moves directly away from the dog. Cat will
+     * stay if it reaches the edge.
+     * <p>
+     * If the rule equals 4 or 5, the cat randomly moves beside the dog, while it
+     * will not be on the same square as the dog.
      */
-    public void move(int squareDog, int dogPositionX, int dogPositionY) {
+    public void move(int squareDog) {
 
-	DogRelativePosition relativePosition = checkRelativePosition(dogPositionX, dogPositionY);
+	DogRelativePosition relativePosition = checkRelativePosition(squareDog);
 
 	if (squareCat == squareDog) {
 	    moveToAdjacentSquare(squareDog);
 	} else {
 	    if (rule == 6) {
-		moveToDog(squareDog, dogPositionX, dogPositionY);
+		moveToDog(squareDog);
 	    } else if (rule == 1 || rule == 2 || rule == 3) {
 		if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		    moveBottomRight();
@@ -157,10 +155,10 @@ public class Cat {
 		} else if (relativePosition == DogRelativePosition.LEFT) {
 		    moveRight();
 		} else {
-		    System.out.println("Error 1 - Cat Class - move()" + squareDog + " " + squareCat);
+
 		}
 	    } else if (rule == 4 || rule == 5) {
-		// It refers to where the dog is at to cat.
+		// It refers to where the dog's relative position to cat.
 		if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		    // If it will not be on the same square as the dog after next move, cat moves
 		    // top left.
@@ -280,8 +278,9 @@ public class Cat {
      * grid.
      */
     private void moveLeft() {
-	if (squareCat != 7 && squareCat != 4 && squareCat != 1) {
+	if (positionX - squareWidth >= 0) {
 	    positionX -= squareWidth;
+	    this.checkSquare();
 	}
     }
 
@@ -290,8 +289,9 @@ public class Cat {
      * grid.
      */
     private void moveRight() {
-	if (squareCat != 9 && squareCat != 6 && squareCat != 3) {
+	if (positionX + squareWidth <= squareWidth * 3) {
 	    positionX += squareWidth;
+	    this.checkSquare();
 	}
     }
 
@@ -299,8 +299,9 @@ public class Cat {
      * Move to the square on the top. Square 7,8, and 9 are on the edge of the grid.
      */
     private void moveUp() {
-	if (squareCat != 7 && squareCat != 8 && squareCat != 9) {
+	if (positionY - squareHeight >= 0) {
 	    positionY -= squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -308,8 +309,9 @@ public class Cat {
      * Move to the square below. Square 1,2, and 3 are on the edge of the grid.
      */
     private void moveDown() {
-	if (squareCat != 1 && squareCat != 2 && squareCat != 3) {
+	if (positionY + squareHeight <= squareHeight * 3) {
 	    positionY += squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -318,9 +320,10 @@ public class Cat {
      * the grid.
      */
     private void moveTopLeft() {
-	if (squareCat != 1 && squareCat != 4 && squareCat != 7 && squareCat != 8 && squareCat != 9) {
+	if (positionX - squareWidth >= 0 && positionY - squareHeight >= 0) {
 	    positionX -= squareWidth;
 	    positionY -= squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -329,9 +332,10 @@ public class Cat {
      * the grid.
      */
     private void moveTopRight() {
-	if (squareCat != 7 && squareCat != 8 && squareCat != 9 && squareCat != 6 && squareCat != 3) {
+	if (positionX + squareWidth <= squareWidth * 3 && positionY - squareHeight >= 0) {
 	    positionX += squareWidth;
 	    positionY -= squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -340,9 +344,10 @@ public class Cat {
      * of the grid.
      */
     private void moveBottomLeft() {
-	if (squareCat != 7 && squareCat != 4 && squareCat != 1 && squareCat != 2 && squareCat != 3) {
+	if (positionX - squareWidth >= 0 && positionY + squareHeight <= squareHeight * 3) {
 	    positionX -= squareWidth;
 	    positionY += squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -351,9 +356,10 @@ public class Cat {
      * of the grid.
      */
     private void moveBottomRight() {
-	if (squareCat != 1 && squareCat != 2 && squareCat != 3 && squareCat != 6 && squareCat != 9) {
+	if (positionX + squareWidth <= squareHeight * 3 && positionY + squareHeight <= squareHeight * 3) {
 	    positionX += squareWidth;
 	    positionY += squareHeight;
+	    this.checkSquare();
 	}
     }
 
@@ -362,7 +368,7 @@ public class Cat {
      * adjacent squares. It uses .nextInt() method to randomly generate a number.
      * The number than is used to choose where the cat moves. If the cat is going to
      * the square that the Dog is on, the cat stays.
-     * 
+     * <p>
      * E.g: In first situation, if the cat is on square 1. It generates a random
      * number from 0 to 2. If the random number is 0, checks if the dog is on square
      * 4, if not the cat moves to square 4.
@@ -373,21 +379,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionY += squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    default:
@@ -398,34 +400,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionX += squareWidth;
+		    this.moveBottomRight();
 		}
 		break;
 	    default:
@@ -436,21 +431,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    default:
@@ -461,34 +452,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionY -= squareHeight;
-		    positionX += squareWidth;
+		    this.moveTopRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -499,54 +483,42 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 1) {
-		    squareCat = 1;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    case 2:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionX += HerdingCats.SQUARE_SIZE;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 3:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 4:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 5:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 6:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 7:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionX += squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopRight();
 		}
 		break;
 	    default:
@@ -557,34 +529,27 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionY -= squareHeight;
+		    this.moveUp();
 		}
 		break;
 	    case 1:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX -= squareWidth;
-		    positionY -= squareHeight;
+		    this.moveTopLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 3:
 		if (squareDog != 2) {
-		    squareCat = 2;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 4:
 		if (squareDog != 3) {
-		    squareCat = 3;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -595,21 +560,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 2:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -620,34 +581,28 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 7) {
-		    squareCat = 7;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 4) {
-		    squareCat = 4;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    case 3:
 		if (squareDog != 6) {
 		    squareCat = 6;
-		    positionX += squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomRight();
 		}
 		break;
 	    case 4:
 		if (squareDog != 9) {
-		    squareCat = 9;
-		    positionX += squareWidth;
+		    this.moveRight();
 		}
 		break;
 	    default:
@@ -658,21 +613,17 @@ public class Cat {
 	    switch (n) {
 	    case 0:
 		if (squareDog != 8) {
-		    squareCat = 8;
-		    positionX -= squareWidth;
+		    this.moveLeft();
 		}
 		break;
 	    case 1:
 		if (squareDog != 5) {
-		    squareCat = 5;
-		    positionX -= squareWidth;
-		    positionY += squareHeight;
+		    this.moveBottomLeft();
 		}
 		break;
 	    case 2:
 		if (squareDog != 6) {
-		    squareCat = 6;
-		    positionY += squareHeight;
+		    this.moveDown();
 		}
 		break;
 	    default:
@@ -688,42 +639,33 @@ public class Cat {
      * Check the relative position between cat and dog for the move() method to
      * decide where the cat should the go.
      * 
-     * @param dogPositionX x coordinate of the dog
-     * @param dogPositionY y coordinate of the dog
+     * @param squareDog
      * @return the relative position of the dog. (e.g., the dog is on the top left
      *         of the cat)
      */
-    private DogRelativePosition checkRelativePosition(int dogPositionX, int dogPositionY) {
+    private DogRelativePosition checkRelativePosition(int squareDog) {
 
 	// It checks relative position by comparing dog positions and cat positions.
 
-	if (positionX < dogPositionX - squareWidth / 2 && positionY < dogPositionY - squareHeight / 2) {
-	    // dog is on the bottom right
+	if (squareCat - squareDog == 2 && (squareDog != 7 && squareCat != 9) && (squareDog != 4 && squareCat != 6)
+		&& (squareDog != 1 && squareCat != 3)) {
 	    return DogRelativePosition.BOTTOM_RIGHT;
-	} else if ((positionX == dogPositionX || positionX - dogPositionX > -squareWidth
-		|| positionX - dogPositionX < squareWidth) && positionY < dogPositionY - squareHeight / 2) {
-	    // dog is on the square bellow
+	} else if (squareCat - squareDog == 3) {
 	    return DogRelativePosition.BOTTOM;
-	} else if (positionX > dogPositionX + squareWidth / 2 && positionY < dogPositionY - squareHeight / 2) {
-	    // dog is on the bottom left
+	} else if (squareCat - squareDog == 4 && (squareCat != 7 && squareDog != 3)) {
 	    return DogRelativePosition.BOTTOM_LEFT;
-	} else if (positionX > dogPositionX + squareWidth / 2 && (positionY == dogPositionY
-		|| positionY - dogPositionY > -squareHeight / 2 || positionY - dogPositionY < squareHeight / 2)) {
-	    // dog is on the square on the left
+	} else if (squareCat - squareDog == 1 && (squareCat != 7 && squareDog != 6)
+		&& (squareCat != 4 && squareDog != 3)) {
 	    return DogRelativePosition.LEFT;
-	} else if (positionX > dogPositionX + squareWidth / 2 && positionY > dogPositionY + squareHeight / 2) {
-	    // dog is on the top left
+	} else if (squareDog - squareCat == 2 && (squareCat != 7 && squareDog != 9)
+		&& (squareCat != 4 && squareDog != 6) && (squareCat != 1 && squareDog != 3)) {
 	    return DogRelativePosition.TOP_LEFT;
-	} else if ((positionX == dogPositionX || positionX - dogPositionX > -squareWidth
-		|| positionX - dogPositionX < squareWidth) && positionY >= dogPositionY + squareHeight / 2) {
-	    // dog is on the square on the top
+	} else if (squareDog - squareCat == 3) {
 	    return DogRelativePosition.TOP;
-	} else if (positionX < dogPositionX - squareWidth / 2 && positionY > dogPositionY + squareHeight / 2) {
-	    // dog is on the top right
+	} else if (squareDog - squareCat == 4 && (squareDog != 7 && squareCat != 3)) {
 	    return DogRelativePosition.TOP_RIGHT;
-	} else if (positionX < dogPositionX - squareWidth / 2 && (positionY == dogPositionY
-		|| positionY - dogPositionY > -squareHeight / 2 || positionY - dogPositionY < squareHeight / 2)) {
-	    // on the right
+	} else if (squareDog - squareCat == 1 && (squareDog != 7 && squareCat != 6)
+		&& (squareDog != 4 && squareCat != 3)) {
 	    return DogRelativePosition.RIGHT;
 	} else {
 	    // the dog is at the same square as the dog.
@@ -737,41 +679,37 @@ public class Cat {
      * positionX and positionY for the drawCat() method to display the cat on the
      * grid.
      * 
-     * @param squareDog    the square that the dog is on
-     * @param dogPositionX the x coordinate of the dog
-     * @param dogPositionY the y coordinate of the dog
+     * @param squareDog the square that the dog is on
      */
-    private void moveToDog(int squareDog, int dogPositionX, int dogPositionY) {
+    private void moveToDog(int squareDog) {
 	if (squareCat != squareDog) {
-	    DogRelativePosition relativePosition = checkRelativePosition(dogPositionX, dogPositionY);
+	    DogRelativePosition relativePosition = checkRelativePosition(squareDog);
 	    if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		moveTopLeft();
-		squareCat += 2;
+
 	    } else if (relativePosition == DogRelativePosition.TOP) {
 		moveUp();
-		squareCat += 3;
+
 	    } else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
 		moveTopRight();
-		squareCat += 4;
+
 	    } else if (relativePosition == DogRelativePosition.RIGHT) {
 		moveRight();
-		squareCat++;
+
 	    } else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
 		moveBottomRight();
-		squareCat -= 2;
+
 	    } else if (relativePosition == DogRelativePosition.BOTTOM) {
 		moveDown();
-		squareCat -= 3;
+
 	    } else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
 		moveBottomLeft();
-		squareCat -= 4;
+
 	    } else if (relativePosition == DogRelativePosition.LEFT) {
 		moveLeft();
-		squareCat--;
+
 	    } else {
-		JOptionPane.showMessageDialog(null, "Error - Cat Class moveToDog()\" + squareDog + \" \" + squareCat",
-			"Error", JOptionPane.WARNING_MESSAGE);
-//		System.out.println("Error - Cat Class moveToDog()" + squareDog + " " + squareCat);
+
 	    }
 	}
     }
@@ -781,7 +719,7 @@ public class Cat {
      * 
      * @return x coordinate of the cat
      */
-    public int getPositionX() {
+    public double getPositionX() {
 	return this.positionX;
     }
 
@@ -790,7 +728,7 @@ public class Cat {
      * 
      * @return y coordinate of the cat
      */
-    public int getPositionY() {
+    public double getPositionY() {
 	return this.positionY;
     }
 
@@ -810,5 +748,32 @@ public class Cat {
      */
     public void setSquareHeight(int height) {
 	this.squareHeight = height;
+    }
+
+    /**
+     * Set position x.
+     * 
+     * @param x x coordinate
+     */
+    public void setPositionX(double x) {
+	this.positionX = x;
+    }
+
+    /**
+     * Set position y.
+     * 
+     * @param y y coordinate
+     */
+    public void setPositionY(double y) {
+	this.positionY = y;
+    }
+
+    /**
+     * get the rule of this cat's movement.
+     * 
+     * @return rule the rule of this cat's movement.
+     */
+    public int getRule() {
+	return this.rule;
     }
 }

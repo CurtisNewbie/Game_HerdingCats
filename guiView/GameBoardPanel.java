@@ -32,22 +32,24 @@ public class GameBoardPanel extends JPanel {
     public static final int CAT_HEIGHT = 50;
 
     /** A bunch of cats */
-    private ArrayList<int[]> cats;
+    private ArrayList<double[]> cats;
 
     /** Only has one dog */
     private int dogX;
     private int dogY;
 
-    public GameBoardPanel(ArrayList<int[]> cats, int dogX, int dogY) {
+    /** Constructor
+     * 
+     * @param cats an ArrayList of double[] which represents the x coordinate and y
+     *             coordinate for all the cats. Within the double[], the [0] is the x
+     *             coordinate and the [1] is the y coordinate.
+     * @param dogX x coordinate of the dog.
+     * @param dogY y coordinate of the dog.
+     */
+    public GameBoardPanel(ArrayList<double[]> cats, int dogX, int dogY) {
 	this.cats = cats;
 	this.dogX = dogX;
 	this.dogY = dogY;
-    }
-
-    // For testing the game borad looking only
-    public GameBoardPanel() {
-	// TODO Auto-generated constructor stub
-	this.cats = new ArrayList<>();
     }
 
     @Override
@@ -73,8 +75,8 @@ public class GameBoardPanel extends JPanel {
      * 
      * @param x
      */
-    private int[] generateDogShapeXList(int x) {
-	int[] newDogShapeX = { x, x, x + DOG_WIDTH, x + DOG_WIDTH, x };
+    private double[] generateDogShapeXList(double x) {
+	double[] newDogShapeX = { x, x, x + DOG_WIDTH, x + DOG_WIDTH, x };
 	return newDogShapeX;
     }
 
@@ -84,18 +86,18 @@ public class GameBoardPanel extends JPanel {
      * 
      * @param y
      */
-    private int[] generateDogShapeYList(int y) {
-	int[] newDogShapeY = { y, y + DOG_HEIGHT, y + (DOG_HEIGHT / 3) * 2, y + DOG_HEIGHT / 3, y };
+    private double[] generateDogShapeYList(double y) {
+	double[] newDogShapeY = { y, y + DOG_HEIGHT, y + (DOG_HEIGHT / 3) * 2, y + DOG_HEIGHT / 3, y };
 	return newDogShapeY;
     }
 
-    private int[] generateCatShapeXList(int x) {
-	int[] newCatShapeX = { x + CAT_WIDTH, x + (CAT_WIDTH / 2), x, x, x, x + (CAT_WIDTH / 2), x + CAT_WIDTH };
+    private double[] generateCatShapeXList(double eachCat) {
+	double[] newCatShapeX = { eachCat + CAT_WIDTH, eachCat + (CAT_WIDTH / 2), eachCat, eachCat, eachCat, eachCat + (CAT_WIDTH / 2), eachCat + CAT_WIDTH };
 	return newCatShapeX;
     }
 
-    private int[] generateCatShapeYList(int y) {
-	int[] newCatShapeY = { y - (CAT_HEIGHT / 2), y - (CAT_HEIGHT / 2), y - (CAT_HEIGHT / 4), y,
+    private double[] generateCatShapeYList(double y) {
+	double[] newCatShapeY = { y - (CAT_HEIGHT / 2), y - (CAT_HEIGHT / 2), y - (CAT_HEIGHT / 4), y,
 		y + (CAT_HEIGHT / 4), y + (CAT_HEIGHT / 2), y + (CAT_HEIGHT / 2) };
 	return newCatShapeY;
     }
@@ -122,8 +124,8 @@ public class GameBoardPanel extends JPanel {
      * @param g2 Graphics2D of the GameBoardPanel object
      */
     private void drawDog(Graphics2D g2) {
-	int[] xCoor = this.generateDogShapeXList(dogX);
-	int[] yCoor = this.generateDogShapeYList(dogY);
+	double[] xCoor = this.generateDogShapeXList(dogX);
+	double[] yCoor = this.generateDogShapeYList(dogY);
 	GeneralPath gp = new GeneralPath(GeneralPath.WIND_EVEN_ODD, xCoor.length); // initial capacity = 5
 
 	gp.moveTo(xCoor[0], yCoor[0]);
@@ -142,9 +144,9 @@ public class GameBoardPanel extends JPanel {
      * @param g2 Graphics2D of the GameBoardPanel object
      */
     private void drawCat(Graphics2D g2) {
-	for (int[] eachCat : cats) {
-	    int[] xCoor = this.generateCatShapeXList(eachCat[0]);
-	    int[] yCoor = this.generateCatShapeYList(eachCat[1]);
+	for (double[] eachCat : cats) {
+	    double[] xCoor = this.generateCatShapeXList(eachCat[0]);
+	    double[] yCoor = this.generateCatShapeYList(eachCat[1]);
 	    GeneralPath gp = new GeneralPath(GeneralPath.WIND_EVEN_ODD, xCoor.length); // initial capacity = 5
 
 	    gp.moveTo(xCoor[0], yCoor[0]);
@@ -176,11 +178,11 @@ public class GameBoardPanel extends JPanel {
     /**
      * update the ArrayList of cats' positions.
      * 
-     * @param cats an ArrayList of int[] which represents the x coordinate and y
-     *             coordinate for all the cats. Within the int[], the [0] is the x
+     * @param cats an ArrayList of double[] which represents the x coordinate and y
+     *             coordinate for all the cats. Within the double[], the [0] is the x
      *             coordinate and the [1] is the y coordinate.
      */
-    public void updateCatPositions(ArrayList<int[]> cats) {
+    public void updateCatPositions(ArrayList<double[]> cats) {
 	this.cats = cats;
     }
 
