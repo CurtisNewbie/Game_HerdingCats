@@ -145,8 +145,8 @@ public class ViewModelController {
 			    * yChange;
 		    // update the new positions of the cat based on the distance between the cat and
 		    // the centre point.
-		    c.setSquareHeight(gameBoardSize.height/3);
-		    c.setSquareWidth(gameBoardSize.width/3);
+		    c.setSquareHeight(gameBoardSize.height / 3);
+		    c.setSquareWidth(gameBoardSize.width / 3);
 		    c.setPositionX((getCentrePositionX(thisCatSquare, gameBoardSize.width) - xDistanceToCentre));
 		    c.setPositionY((getCentrePositionY(thisCatSquare, gameBoardSize.height) - yDistanceToCentre));
 		}
@@ -161,6 +161,14 @@ public class ViewModelController {
 	}
     }
 
+    /**
+     * It is a KeyAdapter that listens to the arrow up, down, left, right keys on
+     * the keyboard. When the users press these keys, the dog's position changes in
+     * accordance to the keys. I.E., these keys control the dog's movement.
+     * 
+     * @author Curtis
+     *
+     */
     private class KeyControlHandler extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -169,26 +177,30 @@ public class ViewModelController {
 	    int key = e.getKeyCode();
 	    if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT
 		    || key == KeyEvent.VK_RIGHT) {
-
 		int dogCurSquare = dog.getSquare();
-
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
+		switch (key) {
+		case KeyEvent.VK_UP:
 		    if (dogCurSquare != 7 && dogCurSquare != 8 && dogCurSquare != 9) {
 			dog.setSquare(dogCurSquare + 3);
 		    }
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+		    break;
+		case KeyEvent.VK_DOWN:
 		    if (dogCurSquare != 1 && dogCurSquare != 2 && dogCurSquare != 3) {
 			dog.setSquare(dogCurSquare - 3);
 		    }
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		    break;
+		case KeyEvent.VK_LEFT:
 		    if (dogCurSquare != 1 && dogCurSquare != 4 && dogCurSquare != 7) {
 			dog.setSquare(dogCurSquare - 1);
 		    }
-		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		    break;
+		case KeyEvent.VK_RIGHT:
 		    if (dogCurSquare != 3 && dogCurSquare != 6 && dogCurSquare != 9) {
 			dog.setSquare(dogCurSquare + 1);
 		    }
+		    break;
 		}
+
 		int dogNewX = getCentrePositionX(dog.getSquare(), gameBoardSize.width);
 		int dogNewY = getCentrePositionY(dog.getSquare(), gameBoardSize.height);
 		gameView.getPanel().setDogX(dogNewX);
@@ -198,12 +210,12 @@ public class ViewModelController {
 		for (Cat c : cats) {
 		    c.move(dog.getSquare());
 		}
+
+		// Update displayed cats positions in GUI
 		ArrayList<double[]> newCatsPositions = new ArrayList<>();
-		// displayed cats positions
 		for (Cat c : cats) {
 		    newCatsPositions.add(new double[] { c.getPositionX(), c.getPositionY() });
 		}
-
 		gameView.getPanel().updateCatPositions(newCatsPositions);
 		gameView.getGameFrame().repaint();
 	    }
