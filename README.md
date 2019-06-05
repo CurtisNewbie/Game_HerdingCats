@@ -37,4 +37,4 @@ You will need to use the arrow keys on the keyboard to control the dog 'D', i.e.
 
 <h2> The Screenshot of the game </h2>
 
-![Game_HerdingCats Screenshot](https://user-images.githubusercontent.com/45169791/58975519-1442c680-87bd-11e9-8643-dd2c26552deb.PNG)
+![Game_HerdingCats Screenshot](https://user-images.githubusercontent.com/45169791/58976482-78ff2080-87bf-11e9-8caf-4234e270f94a.PNG)
