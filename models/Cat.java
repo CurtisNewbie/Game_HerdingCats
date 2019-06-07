@@ -46,7 +46,7 @@ public class Cat {
     }
 
     /**
-     * It determines how the cat moves (the rules) 1 - 6. The rules are: If the
+     * It determines how the cat moves (the rules) 1 - 5. The rules are: If the
      * number is 1-3, then the cat moves away from the dog. This should be to the
      * square directly away from the dog, unless this would take the Cat to the edge
      * of the grid, in which case it should stay still. If the number is 4 or 5, the
@@ -117,10 +117,8 @@ public class Cat {
 
     /**
      * It moves the cat in response to the position of dog according to its rule (1
-     * - 6). If the cat is on the same square as the dog, the cat moves randomly to
+     * - 5). If the cat is on the same square as the dog, the cat moves randomly to
      * the adjacent squares excluding the square that it's currently on.
-     * <p>
-     * If rule = 6, cat moves to the same square as the dog.
      * <p>
      * If rule equals 1, 2 or 3, the cat moves directly away from the dog. Cat will
      * stay if it reaches the edge.
@@ -135,9 +133,10 @@ public class Cat {
 	if (squareCat == squareDog) {
 	    moveToAdjacentSquare(squareDog);
 	} else {
-	    if (rule == 6) {
-		moveToDog(squareDog);
-	    } else if (rule == 1 || rule == 2 || rule == 3) {
+//	    if (rule == 6) {
+//		moveToDog(squareDog);
+//	    } else if
+	    if (rule == 1 || rule == 2 || rule == 3) {
 		if (relativePosition == DogRelativePosition.TOP_LEFT) {
 		    moveBottomRight();
 		} else if (relativePosition == DogRelativePosition.TOP) {
@@ -673,46 +672,46 @@ public class Cat {
 	}
     }
 
-    /**
-     * This method moves the cat until the cat is on the same square as the dog. The
-     * methods such as moveTopLeft(), moveUp() and so on, they only update the
-     * positionX and positionY for the drawCat() method to display the cat on the
-     * grid.
-     * 
-     * @param squareDog the square that the dog is on
-     */
-    private void moveToDog(int squareDog) {
-	if (squareCat != squareDog) {
-	    DogRelativePosition relativePosition = checkRelativePosition(squareDog);
-	    if (relativePosition == DogRelativePosition.TOP_LEFT) {
-		moveTopLeft();
-
-	    } else if (relativePosition == DogRelativePosition.TOP) {
-		moveUp();
-
-	    } else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
-		moveTopRight();
-
-	    } else if (relativePosition == DogRelativePosition.RIGHT) {
-		moveRight();
-
-	    } else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
-		moveBottomRight();
-
-	    } else if (relativePosition == DogRelativePosition.BOTTOM) {
-		moveDown();
-
-	    } else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
-		moveBottomLeft();
-
-	    } else if (relativePosition == DogRelativePosition.LEFT) {
-		moveLeft();
-
-	    } else {
-
-	    }
-	}
-    }
+//    /**
+//     * This method moves the cat until the cat is on the same square as the dog. The
+//     * methods such as moveTopLeft(), moveUp() and so on, they only update the
+//     * positionX and positionY for the drawCat() method to display the cat on the
+//     * grid.
+//     * 
+//     * @param squareDog the square that the dog is on
+//     */
+//    private void moveToDog(int squareDog) {
+//	if (squareCat != squareDog) {
+//	    DogRelativePosition relativePosition = checkRelativePosition(squareDog);
+//	    if (relativePosition == DogRelativePosition.TOP_LEFT) {
+//		moveTopLeft();
+//
+//	    } else if (relativePosition == DogRelativePosition.TOP) {
+//		moveUp();
+//
+//	    } else if (relativePosition == DogRelativePosition.TOP_RIGHT) {
+//		moveTopRight();
+//
+//	    } else if (relativePosition == DogRelativePosition.RIGHT) {
+//		moveRight();
+//
+//	    } else if (relativePosition == DogRelativePosition.BOTTOM_RIGHT) {
+//		moveBottomRight();
+//
+//	    } else if (relativePosition == DogRelativePosition.BOTTOM) {
+//		moveDown();
+//
+//	    } else if (relativePosition == DogRelativePosition.BOTTOM_LEFT) {
+//		moveBottomLeft();
+//
+//	    } else if (relativePosition == DogRelativePosition.LEFT) {
+//		moveLeft();
+//
+//	    } else {
+//
+//	    }
+//	}
+//    }
 
     /**
      * Get the x coordinate of the cat

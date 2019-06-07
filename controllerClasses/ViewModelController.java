@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import guiView.GameBoardPanel;
 import guiView.GameView;
@@ -26,6 +26,10 @@ public class ViewModelController {
 
     public ViewModelController(GameView gameView) {
 	this.gameView = gameView;
+	// The defualt size of the panel
+	gameBoardSize = gameView.FRAME_DEFAULT_DIM;
+
+	// Initiates cats and dogs based on random positions and rules.
 	this.initiateGame();
 
 	// Associate listeners:
@@ -33,11 +37,15 @@ public class ViewModelController {
 	gameView.addKeyboardControlListener(new KeyControlHandler());
     }
 
+    /**
+     * Initiates the game. It creates eight Cat objects based on the randomly
+     * generated positions. It also creates a Dog object based on the randomly
+     * generated position. These dog and cats are then pasted to the GUI classes to
+     * create their graphical representations.
+     */
     private void initiateGame() {
-	// The defualt size of the panel
-	gameBoardSize = gameView.FRAME_DEFAULT_DIM;
 	// new cats
-	cats = new ArrayList<>();
+	this.cats = new ArrayList<>();
 	for (int x = 0; x < 8; x++) {
 	    cats.add(new Cat(
 		    GameBoardPanel.CAT_WIDTH + new Random().nextInt(gameBoardSize.width - GameBoardPanel.CAT_WIDTH + 1),
@@ -54,7 +62,7 @@ public class ViewModelController {
 	}
 	// New dog
 	int dogSquare = new Random().nextInt(8) + 1;
-	dog = new Dog(dogSquare);
+	this.dog = new Dog(dogSquare);
 	int dogX = getCentrePositionX(dogSquare, gameBoardSize.width);
 	int dogY = getCentrePositionY(dogSquare, gameBoardSize.height);
 
@@ -218,6 +226,52 @@ public class ViewModelController {
 		}
 		gameView.getPanel().updateCatPositions(newCatsPositions);
 		gameView.getGameFrame().repaint();
+
+		// See whether the game wins
+		boolean win = true;
+		int square = cats.get(0).getSquareCat();
+		int numOfCats = cats.size();
+		for (int i = 1; i < numOfCats; i++) {
+		    if (square != cats.get(i).getSquareCat()) {
+			win = false;
+		    }
+		}
+
+		if (win) {
+		    int answer = JOptionPane.showConfirmDialog(null,
+			    "Wow, no way you win the game! Do you want to start a new game?", "You Win!!!!!!",
+			    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		    if (answer == 0) {
+			// new cats
+			cats = new ArrayList<>();
+			for (int x = 0; x < 8; x++) {
+			    cats.add(new Cat(
+				    GameBoardPanel.CAT_WIDTH
+					    + new Random().nextInt(gameBoardSize.width - GameBoardPanel.CAT_WIDTH + 1),
+				    GameBoardPanel.CAT_HEIGHT + new Random()
+					    .nextInt(gameBoardSize.height - GameBoardPanel.CAT_HEIGHT + 1),
+				    1 + new Random().nextInt(MAX_RULE)));
+			}
+			ArrayList<double[]> catsPosition = new ArrayList<>();
+			for (Cat eachCat : cats) {
+			    eachCat.setSquareHeight(gameBoardSize.height / 3);
+			    eachCat.setSquareWidth(gameBoardSize.width / 3);
+			    eachCat.checkSquare();
+			    catsPosition.add(new double[] { eachCat.getPositionX(), eachCat.getPositionY() });
+			}
+			gameView.getPanel().updateCatPositions(catsPosition);
+			
+			// New dog
+			int dogSquare = new Random().nextInt(8) + 1;
+			dog = new Dog(dogSquare);
+			int dogX = getCentrePositionX(dogSquare, gameBoardSize.width);
+			int dogY = getCentrePositionY(dogSquare, gameBoardSize.height);
+			gameView.getPanel().setDogX(dogX);
+			gameView.getPanel().setDogY(dogY);
+			gameView.getGameFrame().repaint();
+		    }
+		}
+
 	    }
 	}
     }
