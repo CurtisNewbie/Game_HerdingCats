@@ -46,7 +46,7 @@ public class Cat {
     }
 
     /**
-     * It determines how the cat moves (the rules) 1 - 6. The rules are: If the
+     * It determines how the cat moves (the rules) 1 - 5. The rules are: If the
      * number is 1-3, then the cat moves away from the dog. This should be to the
      * square directly away from the dog, unless this would take the Cat to the edge
      * of the grid, in which case it should stay still. If the number is 4 or 5, the
