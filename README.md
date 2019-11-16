@@ -28,9 +28,6 @@ game. :D
 <ol>
 <li>I have written some basic algorithm to allow the user to change the size of the window of the game. The cats and dogs will remain at the relative positions that they are supposed to be. However, you should not 'full screen' the game, as it may results in weired phenomenon. I will fix it as soon as possible. </li>
 
-<li>Further, I will replace the ugly 'D' and 'C' symbols using images in the future. Please forgive me, lol.</li>
-</ol>
-
 <h2> How to control the game </h2>
 
 You will need to use the arrow keys on the keyboard to control the dog 'D', i.e., up, down, left, right keys on the keyboard.
