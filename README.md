@@ -25,8 +25,7 @@ game. :D
 
 <h2> Issues that need to be solved </h2>
 
-<ol>
-<li>I have written some basic algorithm to allow the user to change the size of the window of the game. The cats and dogs will remain at the relative positions that they are supposed to be. However, you should not 'full screen' the game, as it may results in weired phenomenon. I will fix it as soon as possible. </li>
+I have written some basic algorithm to allow the user to change the size of the window of the game. The cats and dogs will remain at the relative positions that they are supposed to be. However, you should not 'full screen' the game, as it may results in weired phenomenon. 
 
 <h2> How to control the game </h2>
 
